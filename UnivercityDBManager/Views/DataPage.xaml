@@ -1,0 +1,74 @@
+﻿<Page x:Class="UnivercityDBManager.Views.DataPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UnivercityDBManager.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DataPage">
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="10 0"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="SlateGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <Button x:Name="back_btn" Content="Назад" DockPanel.Dock="Left" Width="80" Height="20" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+            <TextBlock Text="Univercity database manager" 
+                       FontSize="17" FontWeight="Black" Foreground="LightGray"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" 
+                       Margin="-85 0 0 0"/>
+        </DockPanel>
+
+
+        <TabControl Grid.Row="1">
+            <TabItem>
+                <TabItem.Header>Студенты</TabItem.Header>
+                <DataGrid x:Name="studentsDataGrid">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Width="0.2*" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Имя" Width="0.3*" Binding="{Binding FirstName}"/>
+                        <DataGridTextColumn Header="Фамилия" Width="0.3*" Binding="{Binding LastName}"/>
+                        <DataGridTextColumn Header="Возраст" Width="0.2*" Binding="{Binding Age}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>Курсы</TabItem.Header>
+                <DataGrid x:Name="coursesDataGrid">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Width="0.2*" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Название курса" Width="*" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Преподаватель" Width="*" Binding="{Binding TeacherName}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>Привязка</TabItem.Header>
+                <DataGrid x:Name="relationshipDataGrid">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название курса" Width="*" Binding="{Binding CourseName}"/>
+                        <DataGridTextColumn Header="Имя студента" Width="*" Binding="{Binding StudentFirstName}"/>
+                        <DataGridTextColumn Header="Фамилия студента" Width="*" Binding="{Binding StudentLastName}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="add_btn" Content="Добавить" Click="add_btn_Click"/>
+            <Button x:Name="update_btn" Content="Изменить" Click="update_btn_Click"/>
+            <Button x:Name="delete_btn" Content="Удалить" Click="delete_btn_Click" />
+            <TextBox x:Name="searchField" Width="200" Height="20" Margin="80 0 0 0"/>
+            <Button x:Name="search_btn" Content="Поиск" Click="search_btn_Click"/>
+        </StackPanel>
+    </Grid>    
+</Page>
