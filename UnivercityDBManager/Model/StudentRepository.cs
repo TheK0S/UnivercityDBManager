@@ -21,8 +21,9 @@ namespace UnivercityDBManager.Model
                 using (IDbConnection db = new SqlConnection(connectionString))
                 {
                     await db.ExecuteAsync($"INSERT INTO Students (FirstName, LastName, Age) VALUES ('{firstName}', '{lastName}', {age})");
-                }
+                }                
                 MessageBox.Show("Студент добавлен");
+                MainWindow.dataPage.StudentsDataGridUpdate();
             }
             catch (Exception ex)
             {
@@ -39,6 +40,7 @@ namespace UnivercityDBManager.Model
                     await db.ExecuteAsync($"DELETE FROM Students WHERE Id = {id}");
                 }
                 MessageBox.Show("Студент удален");
+                MainWindow.dataPage.StudentsDataGridUpdate();
             }
             catch (Exception ex)
             {
@@ -55,6 +57,7 @@ namespace UnivercityDBManager.Model
                     await db.ExecuteAsync($"UPDATE Students SET FirstName = '{firstName}', LastName = '{lastName}' WHERE Id = {id}");
                 }
                 MessageBox.Show("Данные студента изменены");
+                MainWindow.dataPage.StudentsDataGridUpdate();
             }
             catch (Exception ex)
             {

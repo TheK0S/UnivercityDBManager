@@ -8,6 +8,7 @@ namespace UnivercityDBManager.Model
 {
     internal class Relationship
     {
+        public int Id { get; set; }
         public string CourseName { get; set; }
         public string StudentFirstName { get; set; }
         public string StudentLastName { get; set; }

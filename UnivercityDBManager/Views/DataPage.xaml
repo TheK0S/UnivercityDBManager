@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
-            <Button x:Name="back_btn" Content="Назад" DockPanel.Dock="Left" Width="80" Height="20" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+            <Button x:Name="back_btn" Content="Назад" DockPanel.Dock="Left" Width="80" Height="20" HorizontalAlignment="Left" Margin="5 0 0 0" Click="back_btn_Click"/>
             <TextBlock Text="Univercity database manager" 
                        FontSize="17" FontWeight="Black" Foreground="LightGray"
                        VerticalAlignment="Center" HorizontalAlignment="Center" 
@@ -31,9 +31,9 @@
 
 
         <TabControl Grid.Row="1">
-            <TabItem>
+            <TabItem x:Name="studentsTabItem">
                 <TabItem.Header>Студенты</TabItem.Header>
-                <DataGrid x:Name="studentsDataGrid">
+                <DataGrid x:Name="studentsDataGrid" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Width="0.2*" Binding="{Binding Id}"/>
                         <DataGridTextColumn Header="Имя" Width="0.3*" Binding="{Binding FirstName}"/>
@@ -42,9 +42,9 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="coursesTabItem">
                 <TabItem.Header>Курсы</TabItem.Header>
-                <DataGrid x:Name="coursesDataGrid">
+                <DataGrid x:Name="coursesDataGrid" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Width="0.2*" Binding="{Binding Id}"/>
                         <DataGridTextColumn Header="Название курса" Width="*" Binding="{Binding Name}"/>
@@ -52,9 +52,9 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="relationshipsTabItem">
                 <TabItem.Header>Привязка</TabItem.Header>
-                <DataGrid x:Name="relationshipDataGrid">
+                <DataGrid x:Name="relationshipDataGrid" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Название курса" Width="*" Binding="{Binding CourseName}"/>
                         <DataGridTextColumn Header="Имя студента" Width="*" Binding="{Binding StudentFirstName}"/>
@@ -64,7 +64,8 @@
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="add_btn" Content="Добавить" Click="add_btn_Click"/>
+            <Button x:Name="listUpdate_btn" Content="Обновить" Click="listUpdate_btn_Click"/>
+            <Button x:Name="add_btn" Content="Добавить" Click="add_btn_Click"/>            
             <Button x:Name="update_btn" Content="Изменить" Click="update_btn_Click"/>
             <Button x:Name="delete_btn" Content="Удалить" Click="delete_btn_Click" />
             <TextBox x:Name="searchField" Width="200" Height="20" Margin="80 0 0 0"/>

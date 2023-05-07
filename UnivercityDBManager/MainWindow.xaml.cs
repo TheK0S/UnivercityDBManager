@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,11 +22,12 @@ namespace UnivercityDBManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static DataPage dataPage = new DataPage();
         public MainWindow()
         {
             InitializeComponent();
 
-            mainFrame.Navigate(new DataPage());
+            mainFrame.Navigate(dataPage);
         }
     }
 }

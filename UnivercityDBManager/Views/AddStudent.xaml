@@ -1,0 +1,52 @@
+﻿<Page x:Class="UnivercityDBManager.Views.AddStudent"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UnivercityDBManager.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddStudent">
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="SlateGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <Button x:Name="back_btn" DockPanel.Dock="Left" Content="Назад" Width="80" Height="20" Margin="5 0 0 0" Click="back_btn_Click"/>
+            <TextBlock Text="Добавить студента" 
+                       FontSize="17" FontWeight="Black" Foreground="LightGray"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="200" Margin="-85 0 0 0"/>
+        </DockPanel>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <DockPanel Margin="10">
+                <TextBlock Text="Введите имя студента:"/>
+                <TextBox x:Name="firstNameField" />
+            </DockPanel>
+            <DockPanel Margin="10">
+                <TextBlock Text="Введите фамилию студента:"/>
+                <TextBox x:Name="lastNameField" />
+            </DockPanel>
+            <DockPanel Margin="10">
+                <TextBlock Text="Введите возраст студента:"/>
+                <TextBox x:Name="ageField" TextChanged="ageField_TextChanged" />
+            </DockPanel>
+            <Button x:Name="add_btn" Content="Добавить" Width="80" Height="20" Margin="0 20 0 0" IsDefault="True" Click="add_btn_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

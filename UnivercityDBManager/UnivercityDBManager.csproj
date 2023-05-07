@@ -61,8 +61,18 @@
     <Compile Include="Model\Courses.cs" />
     <Compile Include="Model\CoursesRepository.cs" />
     <Compile Include="Model\Relationship.cs" />
+    <Compile Include="Model\RelationshipRepository.cs" />
     <Compile Include="Model\StudentRepository.cs" />
     <Compile Include="Model\Students.cs" />
+    <Compile Include="Views\AddCource.xaml.cs">
+      <DependentUpon>AddCource.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddRelationship.xaml.cs">
+      <DependentUpon>AddRelationship.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddStudent.xaml.cs">
+      <DependentUpon>AddStudent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DataPage.xaml.cs">
       <DependentUpon>DataPage.xaml</DependentUpon>
     </Compile>
@@ -84,6 +94,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddCource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddRelationship.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddStudent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DataPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
