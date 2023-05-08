@@ -21,9 +21,30 @@ namespace UnivercityDBManager.Views
     /// </summary>
     public partial class AddRelationship : Page
     {
+        List<Courses> courses;
+        List<Students> students;
+        List<string> courseNames = new List<string>();
+        List<string> studentNames = new List<string>();
+
         public AddRelationship()
         {
             InitializeComponent();
+
+            courses = CoursesRepository.GetAllCourses();
+            students = StudentRepository.GetAllStudents();
+
+            foreach (var course in courses)
+            {
+                courseNames.Add(course.Name);
+            }
+
+            foreach (var student in students)
+            {
+                studentNames.Add(student.FirstName + " " + student.LastName);
+            }
+
+            courseComboBox.ItemsSource = courseNames;
+            studentComboBox.ItemsSource = studentNames;
         }
 
         private void back_btn_Click(object sender, RoutedEventArgs e)
@@ -33,10 +54,18 @@ namespace UnivercityDBManager.Views
 
         private async void add_btn_Click(object sender, RoutedEventArgs e)
         {
-            if(courseNameField.Text?.Length > 0 && firstNameField.Text?.Length > 0 && lastNameField.Text?.Length > 0)
-                await RelationshipRepository.AddRelationship(courseNameField.Text, firstNameField.Text, lastNameField.Text);
+            if (courseComboBox.SelectedItem != null && studentComboBox.SelectedItem != null)
+            {                
+                Courses course = courses.FirstOrDefault(c => c.Name == courseComboBox.SelectedItem.ToString());
+                Students student = students.FirstOrDefault(s => s.FirstName + " " + s.LastName == studentComboBox.SelectedItem.ToString());
+
+                if (course != null && student != null)
+                    await RelationshipRepository.AddRelationship(course.Name, student.FirstName, student.LastName);
+            }                
             else
-                MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            {
+                MessageBox.Show("Выбраны не все поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }                
         }
     }
 }

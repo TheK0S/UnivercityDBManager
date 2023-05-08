@@ -9,13 +9,13 @@
       Title="AddRelationship">
 
     <Page.Resources>
-        <Style TargetType="TextBox">
+        <Style TargetType="ComboBox">
             <Setter Property="Width" Value="200"/>
             <Setter Property="Margin" Value="10 0 0 0"/>
             <Setter Property="DockPanel.Dock" Value="Right"/>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Width" Value="160"/>
+            <Setter Property="Width" Value="110"/>
             <Setter Property="TextAlignment" Value="Right"/>
         </Style>
     </Page.Resources>
@@ -36,17 +36,14 @@
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <DockPanel Margin="10">
-                <TextBlock Text="Введите название курса:"/>
-                <TextBox x:Name="courseNameField" />
+                <TextBlock Text="Выберите курс:"/>
+                <ComboBox x:Name="courseComboBox" />
             </DockPanel>
             <DockPanel Margin="10">
-                <TextBlock Text="Введите имя студента:"/>
-                <TextBox x:Name="firstNameField" />
+                <TextBlock Text="Выберите студента:"/>
+                <ComboBox Name="studentComboBox"/>
             </DockPanel>
-            <DockPanel Margin="10">
-                <TextBlock Text="Введите фамилию студента:"/>
-                <TextBox x:Name="lastNameField"/>
-            </DockPanel>
+
             <Button x:Name="add_btn" Content="Добавить" Width="80" Height="20" Margin="0 20 0 0" IsDefault="True" Click="add_btn_Click"/>
         </StackPanel>
     </Grid>
