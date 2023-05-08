@@ -108,12 +108,54 @@ namespace UnivercityDBManager.Views
 
         private void search_btn_Click(object sender, RoutedEventArgs e)
         {
+            if (studentsTabItem.IsSelected)
+            {
+                if(studentsDataGrid.ItemsSource != null && searchField.Text != null)
+                {
+                    Students student = studentsDataGrid.Items.Cast<Students>().FirstOrDefault(
+                        st => st.FirstName.Contains(searchField.Text)
+                        || st.LastName.Contains(searchField.Text));
 
+                    if (student != null)
+                        studentsDataGrid.ScrollIntoView(student);
+                    else
+                        MessageBox.Show($"Студент содержащий \"{searchField.Text}\" в имени или фамилии не найден");
+                }                
+            }
+            else if (coursesTabItem.IsSelected)
+            {
+                if(coursesDataGrid.ItemsSource != null && searchField.Text != null)
+                {
+                    Courses course = coursesDataGrid.Items.Cast<Courses>().FirstOrDefault(
+                        c => c.Name.Contains(searchField.Text) 
+                        || c.TeacherName.Contains(searchField.Text));
+
+                    if(course != null)
+                        coursesDataGrid.ScrollIntoView(course);
+                    else
+                        MessageBox.Show($"Курс или преподаватель содержащий \"{searchField.Text}\" не найден");
+                }
+            }
+            else if (relationshipsTabItem.IsSelected)
+            {
+                if(relationshipDataGrid.ItemsSource == null && searchField.Text != null)
+                {
+                    Relationship rel = relationshipDataGrid.Items.Cast<Relationship>().FirstOrDefault(
+                        r => r.CourseName.Contains(searchField.Text)
+                        || r.StudentFirstName.Contains(searchField.Text)
+                        || r.StudentLastName.Contains(searchField.Text));
+
+                    if(rel != null)
+                        relationshipDataGrid.ScrollIntoView(rel);
+                    else
+                        MessageBox.Show($"Фамилия или имя студента, название курса содержащие \"{searchField.Text}\" не найдены");
+                }
+            }
         }
 
         private void back_btn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            //NavigationService.GoBack();
         }               
 
         

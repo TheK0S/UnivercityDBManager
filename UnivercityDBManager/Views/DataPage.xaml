@@ -21,12 +21,17 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
+
         <DockPanel Grid.Row="0">
             <Button x:Name="back_btn" Content="Назад" DockPanel.Dock="Left" Width="80" Height="20" HorizontalAlignment="Left" Margin="5 0 0 0" Click="back_btn_Click"/>
-            <TextBlock Text="Univercity database manager" 
+            <TextBlock Text="Univercity database manager" Width="auto"                     
                        FontSize="17" FontWeight="Black" Foreground="LightGray"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" 
-                       Margin="-85 0 0 0"/>
+                       VerticalAlignment="Center" HorizontalAlignment="Center"  TextAlignment="Center"
+                       Margin="120 0 0 0"/>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="search_btn" Content="Поиск" Click="search_btn_Click"/>
+                <TextBox x:Name="searchField" Width="200" Height="20" Margin="0 0 5 0"/>                
+            </StackPanel>
         </DockPanel>
 
 
@@ -67,9 +72,7 @@
             <Button x:Name="listUpdate_btn" Content="Обновить" Click="listUpdate_btn_Click"/>
             <Button x:Name="add_btn" Content="Добавить" Click="add_btn_Click"/>            
             <Button x:Name="update_btn" Content="Изменить" Click="update_btn_Click"/>
-            <Button x:Name="delete_btn" Content="Удалить" Click="delete_btn_Click" />
-            <TextBox x:Name="searchField" Width="200" Height="20" Margin="80 0 0 0"/>
-            <Button x:Name="search_btn" Content="Поиск" Click="search_btn_Click"/>
+            <Button x:Name="delete_btn" Content="Удалить" Click="delete_btn_Click" />            
         </StackPanel>
     </Grid>    
 </Page>
