@@ -59,7 +59,7 @@
             </DockPanel>
             <DockPanel Margin="10">
                 <TextBlock Text="Введите возраст:"/>
-                <TextBox x:Name="ageField" TextChanged="ageField_TextChanged" />
+                <TextBox x:Name="ageField"/>
             </DockPanel>
             <Button x:Name="add_btn" Content="Добавить" Width="80" Height="20" Margin="0 20 0 0" IsDefault="True"/>
         </StackPanel>
