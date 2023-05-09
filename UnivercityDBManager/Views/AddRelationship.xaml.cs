@@ -68,5 +68,29 @@ namespace UnivercityDBManager.Views
                 MessageBox.Show("Выбраны не все поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }                
         }
+
+        private void filterStudents_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (filterStudents.Text != null && studentComboBox.ItemsSource != null)
+            {
+                studentComboBox.ItemsSource = from student in studentNames where student.ToLower().Contains(filterStudents.Text.ToLower()) select student;
+                studentComboBox.SelectedIndex = 0;
+            }
+            else
+                studentComboBox.ItemsSource = studentNames;
+        }
+
+        private void filterCourses_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(filterCourses.Text != null && courseComboBox.ItemsSource != null)
+            {
+                courseComboBox.ItemsSource = from course in courseNames where course.ToLower().Contains(filterCourses.Text.ToLower()) select course;
+                courseComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                courseComboBox.ItemsSource = courseNames;
+            }
+        }
     }
 }

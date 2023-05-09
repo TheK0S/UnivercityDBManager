@@ -37,14 +37,10 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <DockPanel Grid.Row="0">
-            <Button x:Name="back_btn" Content="Назад" DockPanel.Dock="Left" 
-                    Width="80" Height="20" HorizontalAlignment="Left" Margin="5 0 0 0" Click="back_btn_Click"/>
-            
+        <DockPanel Grid.Row="0">                       
             <TextBlock Text="Univercity database manager" Width="auto"                     
                        FontSize="17" FontWeight="Black" Foreground="LightGray"
-                       VerticalAlignment="Center" HorizontalAlignment="Center"  TextAlignment="Center"
-                       Margin="120 0 0 0"/>
+                       VerticalAlignment="Center" Margin="10 0 0 0"/>
             
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="search_btn" Content="Поиск" Click="search_btn_Click"/>

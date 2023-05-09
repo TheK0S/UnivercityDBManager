@@ -25,7 +25,7 @@
             <Setter Property="DockPanel.Dock" Value="Right"/>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Width" Value="110"/>
+            <Setter Property="Width" Value="140"/>
             <Setter Property="TextAlignment" Value="Right"/>
         </Style>
     </Page.Resources>
@@ -52,9 +52,17 @@
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <DockPanel Margin="10">
+                <TextBlock Text="Фильтр по курсу:"/>
+                <TextBox x:Name="filterCourses" Width="200" Margin="10 0 0 0" TextChanged="filterCourses_TextChanged"/>
+            </DockPanel>
+            <DockPanel Margin="10">
                 <TextBlock Text="Выберите курс:"/>
                 <ComboBox x:Name="courseComboBox" />
             </DockPanel>
+            <DockPanel Margin="10">
+                <TextBlock Text="Фильтр по ФИ студента:"/>
+                <TextBox x:Name="filterStudents" Width="200" Margin="10 0 0 0" TextChanged="filterStudents_TextChanged"/>
+            </DockPanel>            
             <DockPanel Margin="10">
                 <TextBlock Text="Выберите студента:"/>
                 <ComboBox Name="studentComboBox"/>

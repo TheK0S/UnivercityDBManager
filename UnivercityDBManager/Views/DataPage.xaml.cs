@@ -76,7 +76,11 @@ namespace UnivercityDBManager.Views
             {
                 Relationship rel = (Relationship)relationshipDataGrid.SelectedItem;
                 if (rel != null)
-                    await RelationshipRepository.UpdateRelationship(rel.Id,rel.CourseName, rel.StudentFirstName, rel.StudentLastName);
+                {
+                    //await RelationshipRepository.UpdateRelationship(rel.Id,rel.CourseName, rel.StudentFirstName, rel.StudentLastName);
+                    MessageBox.Show("Нельзя изменить данные привязки из этого окна. Чтобы изменить привязку, нужно удалить ее и изменить данные курса или студента.",
+                        "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
                 else
                     MessageBox.Show("Не выбран элемент для изменения", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -88,7 +92,13 @@ namespace UnivercityDBManager.Views
             {
                 Students student = (Students)studentsDataGrid.SelectedItem;
                 if (student != null)
-                    await StudentRepository.RemoveStudent(student.Id);
+                {
+                    if (MessageBox.Show($"Удалить студента: {student.FirstName} {student.LastName}?", "Вы увурены?",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        await StudentRepository.RemoveStudent(student.Id);
+                    }                        
+                }                    
                 else
                     MessageBox.Show("Не выбран элемент для удаления", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -96,7 +106,13 @@ namespace UnivercityDBManager.Views
             {
                 Courses cource = (Courses)coursesDataGrid.SelectedItem;
                 if (cource != null)
-                    await CoursesRepository.RemoveCourse(cource.Id);
+                {
+                    if (MessageBox.Show($"Удалить курс: {cource.Name}?", "Вы увурены?",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        await CoursesRepository.RemoveCourse(cource.Id);
+                    }                        
+                }
                 else
                     MessageBox.Show("Не выбран элемент для удаления", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -104,7 +120,13 @@ namespace UnivercityDBManager.Views
             {
                 Relationship rel = (Relationship)relationshipDataGrid.SelectedItem;
                 if (rel != null)
-                    await RelationshipRepository.RemoveRelationship(rel.Id);
+                {
+                    if (MessageBox.Show($"Удалить Связь: {rel.CourseName} + {rel.StudentFirstName} {rel.StudentLastName}?", "Вы увурены?",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        await RelationshipRepository.RemoveRelationship(rel.Id);
+                    }
+                }                       
                 else
                     MessageBox.Show("Не выбран элемент для удаления", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -164,12 +186,7 @@ namespace UnivercityDBManager.Views
                         MessageBox.Show($"Фамилия или имя студента, название курса содержащие \"{searchField.Text}\" не найдены");
                 }
             }
-        }
-
-        private void back_btn_Click(object sender, RoutedEventArgs e)
-        {
-            //NavigationService.GoBack();
-        }               
+        }            
 
         
         private void listUpdate_btn_Click(object sender, RoutedEventArgs e)
@@ -205,20 +222,20 @@ namespace UnivercityDBManager.Views
 
         private void filterFieldStudents_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(filterFieldStudents.Text != null)
+            if(filterFieldStudents.Text?.Length > 0)
             {
                 if(firstNameFilterStudents.IsChecked == true)
-                    studentsDataGrid.ItemsSource = from Students student in studentsDataGrid.ItemsSource
+                    studentsDataGrid.ItemsSource = from Students student in studentsDataGrid.Items
                                                where student.FirstName.ToLower().Contains(filterFieldStudents.Text.ToLower())
                                                select student;
 
                 else if(lastNameFilterStudents.IsChecked == true)
-                    studentsDataGrid.ItemsSource = from Students student in studentsDataGrid.ItemsSource
+                    studentsDataGrid.ItemsSource = from Students student in studentsDataGrid.Items
                                                    where student.LastName.ToLower().Contains(filterFieldStudents.Text.ToLower())
                                                    select student;
 
                 else if(ageFilterStudents.IsChecked == true)
-                    studentsDataGrid.ItemsSource = from Students student in studentsDataGrid.ItemsSource
+                    studentsDataGrid.ItemsSource = from Students student in studentsDataGrid.Items
                                                    where student.Age.ToString().Contains(filterFieldStudents.Text)
                                                    select student;
             }            
@@ -247,7 +264,7 @@ namespace UnivercityDBManager.Views
 
         private void filterFieldCourses_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (filterFieldCourses.Text != null)
+            if (filterFieldCourses.Text?.Length > 0)
             {
                 if (courceNameFilterCourses.IsChecked == true)
                     coursesDataGrid.ItemsSource = from Courses cource in coursesDataGrid.ItemsSource
@@ -267,7 +284,7 @@ namespace UnivercityDBManager.Views
 
         private void filterFieldRelationship_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (filterFieldRelationship.Text != null)
+            if (filterFieldRelationship.Text?.Length > 0)
             {
                 if (courceNameFilterRelationship.IsChecked == true)
                     relationshipDataGrid.ItemsSource = from Relationship rel in relationshipDataGrid.ItemsSource
@@ -299,7 +316,9 @@ namespace UnivercityDBManager.Views
                 List<string> exportStrings = new List<string>();
 
                 if (studentsTabItem.IsSelected)
-                {                    
+                {
+                    exportStrings.Add("Id, Имя, Фамилия");
+
                     foreach (var item in studentsDataGrid.ItemsSource)
                     {
                         Students student = (Students)item;
@@ -311,6 +330,8 @@ namespace UnivercityDBManager.Views
                 }
                 else if (coursesTabItem.IsSelected)
                 {
+                    exportStrings.Add("Id, Курс, Преподаватель");
+
                     foreach (var item in coursesDataGrid.ItemsSource)
                     {
                         Courses course = (Courses)item;
@@ -322,6 +343,8 @@ namespace UnivercityDBManager.Views
                 }
                 else if (relationshipsTabItem.IsSelected)
                 {
+                    exportStrings.Add("Id, Курс, Имя студента, Фамилия студента");
+
                     foreach (var item in relationshipDataGrid.ItemsSource)
                     {
                         Relationship rel = (Relationship)item;
