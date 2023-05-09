@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UnivercityDBManager.Model;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace UnivercityDBManager.Views
 {
@@ -284,6 +287,129 @@ namespace UnivercityDBManager.Views
             {
                 relationshipDataGrid.ItemsSource = RelationshipRepository.GetAllRelationships();
             }
+        }
+
+        private void exportToCSV_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Text files (*.csv)|*.csv|All files (*.*)|*.*";
+
+            if (save.ShowDialog() == true)
+            {
+                List<string> exportStrings = new List<string>();
+
+                if (studentsTabItem.IsSelected)
+                {                    
+                    foreach (var item in studentsDataGrid.ItemsSource)
+                    {
+                        Students student = (Students)item;
+                        exportStrings.Add($"{student.Id}, {student.FirstName}, {student.LastName}");
+                    }
+
+                    if(exportStrings.Count > 0)
+                        File.WriteAllLines(save.FileName, exportStrings);
+                }
+                else if (coursesTabItem.IsSelected)
+                {
+                    foreach (var item in coursesDataGrid.ItemsSource)
+                    {
+                        Courses course = (Courses)item;
+                        exportStrings.Add($"{course.Id}, {course.Name}, {course.TeacherName}");
+                    }
+
+                    if (exportStrings.Count > 0)
+                        File.WriteAllLines(save.FileName, exportStrings);
+                }
+                else if (relationshipsTabItem.IsSelected)
+                {
+                    foreach (var item in relationshipDataGrid.ItemsSource)
+                    {
+                        Relationship rel = (Relationship)item;
+                        exportStrings.Add($"{rel.Id}, {rel.CourseName}, {rel.StudentFirstName}, {rel.StudentLastName}");
+                    }
+
+                    if (exportStrings.Count > 0)
+                        File.WriteAllLines(save.FileName, exportStrings);
+                }
+            }
+        }
+
+        private void exportToExcel_Click(object sender, RoutedEventArgs e)
+        {
+            Excel.Application app = new Excel.Application();
+            app.Workbooks.Add();
+
+            Excel.Worksheet ws = (Excel.Worksheet)app.ActiveSheet;
+
+            if (studentsTabItem.IsSelected)
+            {
+                ws.Cells[1, 1] = "Id";
+                ws.Cells[1, 2] = "Имя студента";
+                ws.Cells[1, 3] = "Фамилия студента";
+
+                List<Students> studentsList = new List<Students>();
+
+                foreach (var student in studentsDataGrid.ItemsSource)
+                {
+                    studentsList.Add((Students)student);
+                }
+
+                for (int i = 0; i < studentsList.Count; i++)
+                {
+                    ws.Cells[i + 2, 1] = studentsList[i].Id;
+                    ws.Cells[i + 2, 2] = studentsList[i].FirstName;
+                    ws.Cells[i + 2, 3] = studentsList[i].LastName;
+                }
+
+                app.Visible = true;
+            }
+            else if (coursesTabItem.IsSelected)
+            {
+                ws.Cells[1, 1] = "Id";
+                ws.Cells[1, 2] = "Курс";
+                ws.Cells[1, 3] = "Преподаватель";
+
+                List<Courses> coursesList = new List<Courses>();
+
+                foreach (var course in coursesDataGrid.ItemsSource)
+                {
+                    coursesList.Add((Courses)course);
+                }
+
+                for (int i = 0; i < coursesList.Count; i++)
+                {
+                    ws.Cells[i + 2, 1] = coursesList[i].Id;
+                    ws.Cells[i + 2, 2] = coursesList[i].Name;
+                    ws.Cells[i + 2, 3] = coursesList[i].TeacherName;
+                }
+
+                app.Visible = true;
+            }
+            else if (relationshipsTabItem.IsSelected)
+            {
+                ws.Cells[1, 1] = "Id";
+                ws.Cells[1, 2] = "Курс";
+                ws.Cells[1, 3] = "Имя студента";
+                ws.Cells[1, 4] = "Фамилия студента";
+
+                List<Relationship> relationshipList = new List<Relationship>();
+
+                foreach (var relationship in relationshipDataGrid.ItemsSource)
+                {
+                    relationshipList.Add((Relationship)relationship);
+                }
+
+                for (int i = 0; i < relationshipList.Count; i++)
+                {
+                    ws.Cells[i + 2, 1] = relationshipList[i].Id;
+                    ws.Cells[i + 2, 2] = relationshipList[i].CourseName;
+                    ws.Cells[i + 2, 3] = relationshipList[i].StudentFirstName;
+                    ws.Cells[i + 2, 4] = relationshipList[i].StudentLastName;
+                }
+
+                app.Visible = true;
+            }
+            
         }
     }
 }

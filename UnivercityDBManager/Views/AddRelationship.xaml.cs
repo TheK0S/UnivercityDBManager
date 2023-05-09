@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UnivercityDBManager.Model;
 
+
 namespace UnivercityDBManager.Views
 {
     /// <summary>
