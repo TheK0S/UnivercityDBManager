@@ -9,6 +9,16 @@
       Title="AddRelationship">
 
     <Page.Resources>
+        <RadialGradientBrush x:Key="btn_gradient" GradientOrigin="0.5, 0.5">
+            <GradientStop Color="White" Offset="0.5"/>
+            <GradientStop Color="LightGray" Offset="1"/>
+        </RadialGradientBrush>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="10 0"/>
+            <Setter Property="Background" Value="{StaticResource btn_gradient}"/>
+        </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Width" Value="200"/>
             <Setter Property="Margin" Value="10 0 0 0"/>
@@ -19,7 +29,13 @@
             <Setter Property="TextAlignment" Value="Right"/>
         </Style>
     </Page.Resources>
-    <Grid Background="SlateGray">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Color="SlateGray" Offset="0"/>
+                <GradientStop Color="DarkGray" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>

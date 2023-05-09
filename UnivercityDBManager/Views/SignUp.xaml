@@ -7,8 +7,61 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SignUp">
+    <Page.Resources>
+        <RadialGradientBrush x:Key="btn_gradient" GradientOrigin="0.5, 0.5">
+            <GradientStop Color="White" Offset="0.5"/>
+            <GradientStop Color="LightGray" Offset="1"/>
+        </RadialGradientBrush>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="10 0"/>
+            <Setter Property="Background" Value="{StaticResource btn_gradient}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Color="SlateGray" Offset="0"/>
+                <GradientStop Color="DarkGray" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Button x:Name="back_btn" DockPanel.Dock="Left" Content="Назад" Width="80" Height="20" Margin="5 0 0 0"/>
+            <TextBlock Text="Регистрация студента"
+                       FontSize="17" FontWeight="Black" Foreground="LightGray"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="200" Margin="-85 0 0 0"/>
+        </DockPanel>
 
-    <Grid Background="SlateGray">
-        
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -30 0 0">
+            <DockPanel Margin="10">
+                <TextBlock Text="Введите имя:"/>
+                <TextBox x:Name="firstNameField" />
+            </DockPanel>
+            <DockPanel Margin="10">
+                <TextBlock Text="Введите фамилию:"/>
+                <TextBox x:Name="lastNameField" />
+            </DockPanel>
+            <DockPanel Margin="10">
+                <TextBlock Text="Введите возраст:"/>
+                <TextBox x:Name="ageField" TextChanged="ageField_TextChanged" />
+            </DockPanel>
+            <Button x:Name="add_btn" Content="Добавить" Width="80" Height="20" Margin="0 20 0 0" IsDefault="True"/>
+        </StackPanel>
     </Grid>
 </Page>
